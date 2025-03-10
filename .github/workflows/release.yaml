@@ -36,13 +36,13 @@ jobs:
           KEY_JKS: ${{ secrets.KEY_JKS }}
         run: echo "$KEY_JKS" | base64 --decode > release-keystore.jks
 
-      - name: Build APK
+      - name: Build APK for arm64
         env:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: flutter build apk --split-per-abi
+        run: flutter build apk --release --target-platform=android-arm64
 
-      - name: Rename APK to MovieApp.apk
-        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/MovieApp.apk
+      - name: Rename the APK to MovieApp.apk
+        run: mv build/app/outputs/flutter-apk/*.apk build/app/outputs/flutter-apk/MovieApp.apk
 
       - name: Get current date
         id: date
